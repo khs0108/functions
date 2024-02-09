@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Server Time</title>
+</head>
+<body>
+    <h1>Server Time</h1>
+    <p id="serverTime">Fetching server time...</p>
+
+    <script>
+        // Function to fetch server time from Azure Function
+        function fetchServerTime() {
+            fetch('https://webtask0902.azurewebsites.net/api/HttpTrigger1?code=ZUyAfUUV28ekavPumVyY9fjNTWTHns5ADpXpgxYrf_OjAzFuXONm3g==')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('serverTime').textContent = `Server time: ${data}`;
+                })
+                .catch(error => {
+                    console.error('Error fetching server time:', error);
+                    document.getElementById('serverTime').textContent = 'Error fetching server time';
+                });
+        }
+
+        // Initial fetch when page loads
+        fetchServerTime();
+
+        // Function to refresh server time every 5 seconds
+        setInterval(fetchServerTime, 5000);
+    </script>
+</body>
+</html>
+
+</html>
