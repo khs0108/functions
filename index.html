@@ -11,7 +11,7 @@
     <script>
         // Function to fetch server time from Azure Function
         function fetchServerTime() {
-            fetch('https://webtask0902.azurewebsites.net/api/HttpTrigger1?code=ZUyAfUUV28ekavPumVyY9fjNTWTHns5ADpXpgxYrf_OjAzFuXONm3g==')
+            fetch('https://webtask0902.azurewebsites.net/api/HttpTrigger1?code=OM95xAtTOl1LHXlLqJqU2bXYXZYOmBUR1dsNpiKnhidRAzFu2lK0zw==')
                 .then(response => response.text())
                 .then(data => {
                     document.getElementById('serverTime').textContent = `Server time: ${data}`;
