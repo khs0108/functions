@@ -2,36 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Server Time</title>
 </head>
 <body>
     <h1>Server Time</h1>
-    <p id="serverTime">Fetching server time...</p>
+    <p id="server-time">Fetching server time...</p>
 
-    <script>
-        // Function to fetch server time from Azure Function
-        function fetchServerTime() {
-            fetch('https://webtask0902.azurewebsites.net/api/HttpTrigger1?code=OM95xAtTOl1LHXlLqJqU2bXYXZYOmBUR1dsNpiKnhidRAzFu2lK0zw==')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.text();
-                })
-                .then(data => {
-                    document.getElementById('serverTime').textContent = `Server time: ${data}`;
-                })
-                .catch(error => {
-                    console.error('Error fetching server time:', error);
-                    document.getElementById('serverTime').textContent = `Error fetching server time: ${error.message}`;
-                });
-        }
-
-        // Initial fetch when page loads
-        fetchServerTime();
-
-        // Function to refresh server time every 5 seconds
-        setInterval(fetchServerTime, 5000);
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
