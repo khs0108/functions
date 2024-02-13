@@ -11,6 +11,7 @@ function fetchServerTime() {
         return response.json();
     })
     .then(data => {
+        console.log('Response from server:', data);
         const serverTime = data.serverTime; // Assuming the server returns an object with a key 'serverTime'
         displayServerTime(serverTime);
     })
@@ -21,5 +22,9 @@ function fetchServerTime() {
 
 function displayServerTime(serverTime) {
     const serverTimeElement = document.getElementById('serverTime');
-    serverTimeElement.textContent = serverTime;
+    if (serverTimeElement) {
+        serverTimeElement.textContent = serverTime;
+    } else {
+        console.error('Server time element not found');
+    }
 }
