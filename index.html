@@ -2,40 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Azure Function Server Date and Time</title>
-    <style>
-        #datetime {
-          font-size: 15px;
-            font-family: Calibri; /
-            text-align: left; 
-            margin-top: 40px;
-        }
-    </style>
+    <title>Server Time</title>
 </head>
 <body>
-    <div id="datetime"></div>
- 
+    <h1>Server Time (IST)</h1>
+    <p id="serverTime">Fetching server time...</p>
+
     <script>
-        async function fetchServerDateTime() {
-            try {
-                const response = await fetch('https://nft0602.azurewebsites.net/api/HttpTrigger1?code=lnVXpAFy2u1BEr7N0xvjdu8C4LRwCP0op8J0FaUyB0bfAzFuYhNqYg==');
-                const data = await response.json();
-                return data.serverTime; 
-            } catch (error) {
-                console.error('Error fetching server date and time:', error);
-                return 'Error fetching date and time';
-            }
+        // Function to fetch server time from Azure Function
+        function fetchServerTime() {
+            fetch('https://nft0602.azurewebsites.net/api/HttpTrigger1?code=lnVXpAFy2u1BEr7N0xvjdu8C4LRwCP0op8J0FaUyB0bfAzFuYhNqYg==') // Replace 'URL_OF_YOUR_AZURE_FUNCTION' with the actual URL of your Azure Function
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById('serverTime').textContent = `Server time: ${data}`;
+                })
+                .catch(error => {
+                    console.error('Error fetching server time:', error);
+                    document.getElementById('serverTime').textContent = `Error fetching server time: ${error.message}`;
+                });
         }
 
-        async function updateServerDateTime() {
-            const serverTime = await fetchServerDateTime();
-            document.getElementById('datetime').textContent = `Server Date and Time: ${serverTime}`;
-        }
-        
-        updateServerDateTime();
- 
-        setInterval(updateServerDateTime, 1000);
+        // Initial fetch when page loads
+        fetchServerTime();
+
+        // Function to refresh server time every 5 seconds
+        setInterval(fetchServerTime, 5000);
     </script>
 </body>
 </html>
